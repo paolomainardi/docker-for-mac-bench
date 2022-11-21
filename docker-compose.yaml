@@ -1,0 +1,17 @@
+version: "3"
+services:
+  app:
+    image: node:18-slim
+    working_dir: /usr/src/app
+    volumes:
+      - nfsmount:/usr/src/app:cached
+
+# https://www.jeffgeerling.com/blog/2020/revisiting-docker-macs-performance-nfs-volumes
+# https://cabra.dev/en/2020/04/30/slow-docker-on-mac-use-nfs/
+volumes:
+  nfsmount:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":${PWD}"
