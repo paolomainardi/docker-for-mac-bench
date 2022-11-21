@@ -34,6 +34,17 @@ services:
 
 # https://www.jeffgeerling.com/blog/2020/revisiting-docker-macs-performance-nfs-volumes
 # https://cabra.dev/en/2020/04/30/slow-docker-on-mac-use-nfs/
+
+###   ❯ cat /etc/exports
+###   /System/Volumes/Data -alldirs -mapall=501:20 localhost
+###
+###   ❯ cat /etc/nfs.conf
+###   #
+###   # nfs.conf: the NFS configuration file
+###   #
+###
+###   nfs.server.mount.require_resv_port = 0
+
 volumes:
   nfsmount:
     driver: local
