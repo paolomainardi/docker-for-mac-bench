@@ -1,4 +1,4 @@
-all: test-native test-docker-nomount test-docker-nodemodule-mount test-docker-mount
+all: test-native test-docker-nomount test-docker-nodemodule-mount test-docker-mount test-docker-nfs-mount
 
 build:
 	@docker-compose build -q
@@ -22,7 +22,8 @@ test-docker-nomount: build
 test-docker-mount: build up
 	@echo "Testing: Docker with volume mount..."
 	@echo ""
-	@docker-compose run --rm app-mount -c "rm -rf node_modules && time npm install --silent --no-progress --no-audit 2>&1 | grep real"
+	@rm -rf create-react-app/node_modules
+	@docker-compose run --rm app-mount -c "time npm install --silent --no-progress --no-audit 2>&1 | grep real"
 	@echo ""
 
 test-docker-nodemodule-mount: build up
@@ -38,7 +39,7 @@ test-docker-nfs-mount: build up
 	@echo ""
 	@docker-compose down -v &> /dev/null
 	@docker-compose up -d &> /dev/null
-	@rm -rf node_modules
+	@rm -rf create-react-app/node_modules
 	@docker-compose run --rm app-nfs -c "time npm install --silent --no-progress --no-audit 2>&1 | grep real"
 	@echo ""
 
