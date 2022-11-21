@@ -8,6 +8,9 @@ test-cpu:
 
 test-nfs:
 	rm -rf node_modules
-	docker-compose run --rm app bash -c "time npm install"
+	docker-compose run --rm app-nfs bash -c "time npm install"
 
-
+test-app-nodemodules-local:
+	rm -rf node_modules
+	docker-compose rm -vf app-nodemodules-local
+	docker-compose run --rm app-nodemodules-local bash -c "time npm install"

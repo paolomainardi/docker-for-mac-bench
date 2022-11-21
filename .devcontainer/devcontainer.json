@@ -1,0 +1,6 @@
+{
+  "dockerComposeFile": "../docker-compose.yaml",
+  "service": "app-nodemodules-local",
+  "workspaceFolder": "/usr/src/app",
+  "shutdownAction": "stopCompose"
+}

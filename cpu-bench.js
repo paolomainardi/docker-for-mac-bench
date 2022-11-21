@@ -1,3 +1,4 @@
 const { fib } = require('cpu-benchmark')
-fib(43) 
+fib(45)
 
+asdfasdf
