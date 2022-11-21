@@ -11,7 +11,7 @@ services:
       context: .
     working_dir: /usr/src/app
     volumes:
-      - .:/usr/src/app
+      - ./create-react-app:/usr/src/app
     entrypoint: ash
 
   app-mount-nodemodule-volume:
@@ -19,7 +19,7 @@ services:
       context: .
     working_dir: /usr/src/app
     volumes:
-      - .:/usr/src/app
+      - ./create-react-app:/usr/src/app
       - nodemodules:/usr/src/app/node_modules
     entrypoint: ash
 
