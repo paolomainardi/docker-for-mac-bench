@@ -1,20 +1,36 @@
 version: "3"
 services:
-  app-nfs:
+  app-nomount:
+    build:
+      context: .
+    working_dir: /usr/src/app
+    entrypoint: ash
+
+  app-mount:
     build:
       context: .
     working_dir: /usr/src/app
     volumes:
-      - nfsmount:/usr/src/app:cached
+      - .:/usr/src/app
+    entrypoint: ash
 
-  app-nodemodules-local:
+  app-mount-nodemodule-volume:
     build:
       context: .
     working_dir: /usr/src/app
     volumes:
       - .:/usr/src/app
       - nodemodules:/usr/src/app/node_modules
-    command: /bin/sh -c "while sleep 1000; do :; done"
+    entrypoint: ash
+
+  app-nfs:
+    build:
+      context: .
+    working_dir: /usr/src/app
+    volumes:
+      - nfsmount:/usr/src/app
+    #command: /bin/sh -c "while sleep 1000; do :; done
+    entrypoint: ash
 
 # https://www.jeffgeerling.com/blog/2020/revisiting-docker-macs-performance-nfs-volumes
 # https://cabra.dev/en/2020/04/30/slow-docker-on-mac-use-nfs/
