@@ -15,20 +15,20 @@ test-native: build
 	@echo ""
 
 test-docker-nomount: build
-	@echo "Testing: Docker without volume mount..."
+	@echo "Testing: Docker without volumes..."
 	@echo ""
 	@docker-compose run --rm app-nomount -c "time npm install --silent --no-progress --no-audit 2>&1 | grep real"
 	@echo ""
 
 test-docker-mount: build up
-	@echo "Testing: Docker with volume mount..."
+	@echo "Testing: Docker with a bind mount: ./create-react-app:/usr/src/app"
 	@echo ""
 	@rm -rf create-react-app/node_modules
 	@docker-compose run --rm app-mount -c "time npm install --silent --no-progress --no-audit 2>&1 | grep real"
 	@echo ""
 
 test-docker-nodemodule-mount: build up
-	@echo "Testing: Docker with node_modules mounted as a named volume..."
+	@echo "Testing: Docker with a bind mount: './create/react/app:/usr/src/app' and a volume on: 'nodemodules:/usr/src/app/node_modules'"
 	@echo ""
 	@docker-compose down -v &> /dev/null
 	@docker-compose up -d &> /dev/null
