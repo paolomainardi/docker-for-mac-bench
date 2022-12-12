@@ -23,14 +23,14 @@ services:
       - nodemodules:/usr/src/app/node_modules
     entrypoint: ash
 
-  app-nfs:
-    build:
-      context: .
-    working_dir: /usr/src/app
-    volumes:
-      - nfsmount:/usr/src/app
+#  app-nfs:
+#    build:
+#      context: .
+#    working_dir: /usr/src/app
+#    volumes:
+#      - nfsmount:/usr/src/app
     #command: /bin/sh -c "while sleep 1000; do :; done
-    entrypoint: ash
+#    entrypoint: ash
 
 # https://www.jeffgeerling.com/blog/2020/revisiting-docker-macs-performance-nfs-volumes
 # https://cabra.dev/en/2020/04/30/slow-docker-on-mac-use-nfs/
