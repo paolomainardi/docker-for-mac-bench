@@ -9,8 +9,7 @@ up:
 test-native: build
 	@echo "Testing: Native installation..."
 	@echo ""
-	@cd create-react-app && rm -rf node_modules
-	@# Needed just for the cache.
+	@docker-compose run --rm app-mount -c "rm -rf node_modules"
 	@cd create-react-app && npm install --silent --no-progress && rm -rf node_modules
 	@cd create-react-app && /usr/bin/time -p npm install --silent --no-progress --no-audit 2>&1 | grep real
 	@echo ""
