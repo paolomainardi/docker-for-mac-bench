@@ -9,7 +9,7 @@ up:
 test-native: build
 	@echo "Testing: Native installation..."
 	@echo ""
-	@cd create-react-app && rm -rf node_modules
+	@cd create-react-app && rm -rf node_modules || true
 	@cd create-react-app && /usr/bin/time -p npm install --silent --no-progress --no-audit 2>&1 | grep real
 	@echo ""
 
