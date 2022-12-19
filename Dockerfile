@@ -1,6 +1,6 @@
-FROM node:18-alpine
+FROM node:18
 
-RUN apk add --no-cache git && \
+RUN apt update && apt -y install git && \
     npm install -g npm@latest
 
 WORKDIR /usr/src/app

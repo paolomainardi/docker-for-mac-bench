@@ -4,7 +4,8 @@ services:
     build:
       context: .
     working_dir: /usr/src/app
-    entrypoint: ash
+    entrypoint: bash
+    profiles: ["app"]
 
   app-mount:
     build:
@@ -12,7 +13,8 @@ services:
     working_dir: /usr/src/app
     volumes:
       - ./create-react-app:/usr/src/app
-    entrypoint: ash
+    entrypoint: bash
+    profiles: ["app"]
 
   app-mount-nodemodule-volume:
     build:
@@ -21,16 +23,16 @@ services:
     volumes:
       - ./create-react-app:/usr/src/app
       - nodemodules:/usr/src/app/node_modules
-    entrypoint: ash
+    entrypoint: bash
+    profiles: ["app"]
 
-#  app-nfs:
-#    build:
-#      context: .
-#    working_dir: /usr/src/app
-#    volumes:
-#      - nfsmount:/usr/src/app
-    #command: /bin/sh -c "while sleep 1000; do :; done
-#    entrypoint: ash
+  app-nfs:
+    build:
+      context: .
+    working_dir: /usr/src/app
+    volumes:
+      - nfsmount:/usr/src/app
+    entrypoint: bash
 
 # https://www.jeffgeerling.com/blog/2020/revisiting-docker-macs-performance-nfs-volumes
 # https://cabra.dev/en/2020/04/30/slow-docker-on-mac-use-nfs/
@@ -50,6 +52,7 @@ volumes:
     driver: local
     driver_opts:
       type: nfs
-      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
-      device: ":${PWD}/create-react-app"
+      # Taken from ddev.
+      o: addr=host.docker.internal,hard,nolock,rw,wsize=32768,rsize=32768
+      device: ":/System/Volumes/Data/${PWD}/create-react-app"
   nodemodules:
