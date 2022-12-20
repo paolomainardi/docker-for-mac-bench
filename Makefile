@@ -47,3 +47,15 @@ test-docker-nfs-mount: build
 test-cpu:
 	time node cpu-bench.js
 	docker run --rm -it -v $$PWD:/usr/src/app -v $$PWD/.cache:/root/.npm -w /usr/src/app node:18-slim bash -c "time node cpu-bench.js"
+
+fstat-create-files:
+	./scripts/run-create-files.sh
+
+test-fstat-local:
+	echo "Testing stat without docker"
+	@time find fstat-test | xargs stat > /dev/null
+
+test-fstat-docker:
+	@echo "Testing stat with docker..."
+	@echo ""
+	@docker run --rm -it -v $$PWD:/usr/src/app -w /usr/src/app node:18-slim bash -c "time find fstat-test | xargs stat > /dev/null"
