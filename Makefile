@@ -56,6 +56,6 @@ test-fstat-local:
 	@time find fstat-test | xargs stat > /dev/null
 
 test-fstat-docker:
-	@echo "Testing stat with docker..."
+	@echo "Testing stat with docker (running twice to get more accurate results)..."
 	@echo ""
-	@docker run --rm -it -v $$PWD:/usr/src/app -w /usr/src/app node:18-slim bash -c "time find fstat-test | xargs stat > /dev/null"
+	@docker run --rm -it -v $$PWD:/usr/src/app -w /usr/src/app node:18-slim bash -c "time find fstat-test | xargs stat > /dev/null && time find fstat-test | xargs stat > /dev/null"
