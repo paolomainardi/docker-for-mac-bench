@@ -25,33 +25,5 @@ services:
     entrypoint: bash
     profiles: ["app"]
 
-  app-nfs:
-    build:
-      context: .
-    working_dir: /usr/src/app
-    volumes:
-      - nfsmount:/usr/src/app
-    entrypoint: bash
-
-# https://www.jeffgeerling.com/blog/2020/revisiting-docker-macs-performance-nfs-volumes
-# https://cabra.dev/en/2020/04/30/slow-docker-on-mac-use-nfs/
-
-###   ❯ cat /etc/exports
-###   /System/Volumes/Data -alldirs -mapall=501:20 localhost
-###
-###   ❯ cat /etc/nfs.conf
-###   #
-###   # nfs.conf: the NFS configuration file
-###   #
-###
-###   nfs.server.mount.require_resv_port = 0
-
 volumes:
-  nfsmount:
-    driver: local
-    driver_opts:
-      type: nfs
-      # Taken from ddev.
-      o: addr=host.docker.internal,hard,nolock,rw,wsize=32768,rsize=32768
-      device: ":/System/Volumes/Data/${PWD}/create-react-app"
   nodemodules:
