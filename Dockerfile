@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:20
 
 RUN apt update && apt -y install git && \
     npm install -g npm@latest
